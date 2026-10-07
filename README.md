@@ -4,7 +4,14 @@ A personal portfolio built with [Next.js](https://nextjs.org) and Tailwind CSS, 
 
 ### Personalize it
 
-All editable content lives in one place: [`src/data/site.ts`](./src/data/site.ts). Update your name, title, bio, skills, projects, and social links there — the page picks up the changes automatically.
+All editable content lives in one place: [`src/data/site.ts`](./src/data/site.ts). Your name and details, education, experience, skills, and projects are all there, and the pages pick up changes automatically.
+
+To add photos to a project:
+
+1. Put the images in `public/projects/<project-slug>/`.
+2. In `site.ts`, set the project's `cover` (shown on the home page) and add rows to its `gallery` (shown on the project page). Images in the same row sit side by side at equal height.
+
+Projects without photos show a "Photos coming soon" placeholder.
 
 ### Develop locally
 
