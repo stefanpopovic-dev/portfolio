@@ -1,14 +1,18 @@
 import { site } from "@/data/site";
+import BackToTopButton from "./BackToTopButton";
 
 export default function SiteFooter() {
   return (
-    <footer className="mt-auto flex flex-wrap items-baseline justify-between gap-4 border-t border-line px-5 py-6 text-sm text-muted sm:px-8">
-      <p>
-        © {new Date().getFullYear()} {site.name}
-      </p>
-      <a href="#top" className="hover:text-foreground">
-        Back to top
-      </a>
-    </footer>
+    <>
+      <section className="mt-auto px-5 pt-24 pb-6 text-center text-sm sm:px-8">
+        <a href="#top" className="hover:opacity-50">
+          ↑ Go to Top
+        </a>
+      </section>
+      <footer className="px-5 pb-8 text-center text-sm text-muted sm:px-8">
+        (c) {site.name}, {new Date().getFullYear()}
+      </footer>
+      <BackToTopButton />
+    </>
   );
 }

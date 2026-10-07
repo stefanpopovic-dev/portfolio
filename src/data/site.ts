@@ -8,7 +8,7 @@ export const site = {
   email: "stefanpopovic976@gmail.com",
   social: {
     github: "https://github.com/stefanpopovic-dev",
-    // Add your LinkedIn URL to show it in the header and footer.
+    // Add your LinkedIn URL to show it in the header.
     linkedin: "",
     resume: "",
   },
@@ -81,8 +81,9 @@ export type Project = {
   category: string;
   context: string;
   period: string;
-  year: string;
   tools: string[];
+  // Listed under the project name on the home page cover.
+  scope: string[];
   summary: string;
   highlights: string[];
   // Shown on the home page grid. Leave undefined to show a placeholder until photos are added.
@@ -102,8 +103,8 @@ export const projects: Project[] = [
     category: "PCB Design / Embedded Hardware",
     context: "Personal project",
     period: "May 2026 – Sept. 2026",
-    year: "2026",
     tools: ["KiCad", "STM32F405", "Betaflight"],
+    scope: ["PCB design, 4-layer (KiCad)", "STM32F405, Betaflight", "Board bring-up", "Flight testing"],
     summary:
       "A 4-layer, 30.5 × 30.5 mm STM32F405 flight controller designed from scratch in KiCad, flown on a 5-inch quad with stable hover and full manual control.",
     highlights: [
@@ -142,8 +143,8 @@ export const projects: Project[] = [
     category: "Embedded Firmware",
     context: "Gryphon Racing, Formula SAE",
     period: "Sept. 2024 – Present",
-    year: "2024",
     tools: ["C", "ESP-IDF", "FreeRTOS", "ESP32-S3", "CAN", "LoRa"],
+    scope: ["Embedded firmware (C, FreeRTOS)", "ESP32-S3, CAN bus", "LoRa telemetry", "Gryphon Racing FSAE"],
     summary:
       "Firmware for an ESP32-S3 data logger that records the race car's CAN bus to an SD card and streams live telemetry to the pit over LoRa radio.",
     highlights: [
@@ -160,8 +161,8 @@ export const projects: Project[] = [
     category: "Digital Design / FPGA",
     context: "University of Guelph, team of 4",
     period: "Jan. 2026 – Apr. 2026",
-    year: "2026",
     tools: ["VHDL", "Vivado"],
+    scope: ["Digital design (VHDL)", "Datapath & control logic", "Vivado simulation", "Team of 4"],
     summary:
       "A 16-bit processor designed in VHDL, with its own ALU, control unit, registers, and memory, verified in Vivado simulation.",
     highlights: [
@@ -177,8 +178,8 @@ export const projects: Project[] = [
     category: "Software / Machine Learning",
     context: "Personal project",
     period: "May 2026 – Sept. 2026",
-    year: "2026",
     tools: ["Python", "PyTorch", "python-chess"],
+    scope: ["Alpha-beta search (Python)", "Neural network evaluation (PyTorch)", "Self-play benchmarking"],
     summary:
       "An alpha-beta chess engine whose hand-tuned evaluator was replaced by a neural network trained on 250,000 Stockfish-scored positions.",
     highlights: [
@@ -195,8 +196,8 @@ export const projects: Project[] = [
     category: "Mechanical CAD",
     context: "University of Guelph, team of 6",
     period: "Sept. 2025 – Mar. 2026",
-    year: "2025",
     tools: ["SolidWorks"],
+    scope: ["Reverse engineering", "SolidWorks modeling & assembly", "2D drawing package", "Team of 6"],
     summary:
       "A full SolidWorks reverse engineering of a solar-hydraulic ostrich toy: measured parts, a 2D drawing package, and an animated team assembly.",
     highlights: [
