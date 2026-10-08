@@ -6,7 +6,8 @@ import { createPortal } from "react-dom";
 import type { ProjectImage } from "@/data/site";
 
 export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
-  const images = rows.flat();
+  // Only photos open in the lightbox; clips play in place.
+  const images = rows.flat().filter((item) => !item.video);
   const [open, setOpen] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -31,32 +32,62 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
     };
   }, [open, step]);
 
-  // Position of each row's first image in the flat list the lightbox steps through.
-  const offsets = rows.map((_, r) => rows.slice(0, r).reduce((n, row) => n + row.length, 0));
   const current = open === null ? null : images[open];
 
   return (
     <>
-      <div className="space-y-5">
+      <div className="space-y-4">
         {rows.map((row, r) => (
-          <div key={r} className="flex flex-col gap-5 sm:flex-row">
-            {row.map((image, c) => {
-              const i = offsets[r] + c;
+          <div key={r} className="flex flex-col gap-4 sm:flex-row">
+            {row.map((item) => {
+              // flex-grow by aspect ratio gives every item in the row the same height,
+              // so each item's share of the row width is its aspect ratio over the row's total.
+              const aspect = item.width / item.height;
+              const share = aspect / row.reduce((sum, other) => sum + other.width / other.height, 0);
+              const sizes = `(min-width: 1024px) ${Math.ceil(50 * share)}vw, (min-width: 640px) ${Math.ceil(100 * share)}vw, 100vw`;
               return (
-                // flex-grow by aspect ratio gives every image in the row the same height
-                <figure key={image.src} className="min-w-0" style={{ flex: `${image.width / image.height} 1 0%` }}>
-                  <button type="button" onClick={() => setOpen(i)} className="block w-full cursor-zoom-in" aria-label={`Enlarge: ${image.alt}`}>
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      width={image.width}
-                      height={image.height}
-                      sizes={`(min-width: 640px) ${Math.round(100 / row.length)}vw, 100vw`}
-                      className="w-full bg-surface"
-                      loading={r === 0 ? "eager" : "lazy"}
+                <figure
+                  key={item.src}
+                  // On phones rows stack, so keep a portrait clip from towering over the photos.
+                  className={`min-w-0 ${item.video && aspect < 1 ? "max-sm:max-w-[60%]" : ""}`}
+                  style={{ flex: `${aspect} 1 0%` }}
+                >
+                  {item.video ? (
+                    // The clips have no audio track, so browsers allow them to autoplay.
+                    <video
+                      src={item.video}
+                      poster={item.src}
+                      width={item.width}
+                      height={item.height}
+                      aria-label={item.alt}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      controls
+                      preload="metadata"
+                      className="block h-auto w-full bg-surface object-cover"
+                      style={{ aspectRatio: `${item.width} / ${item.height}` }}
                     />
-                  </button>
-                  {image.caption && <figcaption className="mt-2 text-sm text-muted">{image.caption}</figcaption>}
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setOpen(images.indexOf(item))}
+                      className="block w-full cursor-zoom-in"
+                      aria-label={`Enlarge: ${item.alt}`}
+                    >
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        width={item.width}
+                        height={item.height}
+                        sizes={sizes}
+                        className="w-full bg-surface"
+                        loading={r === 0 ? "eager" : "lazy"}
+                      />
+                    </button>
+                  )}
+                  {item.caption && <figcaption className="mt-2 text-sm text-muted">{item.caption}</figcaption>}
                 </figure>
               );
             })}

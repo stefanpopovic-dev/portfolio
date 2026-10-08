@@ -83,27 +83,46 @@ export default async function ProjectPage({ params }: PageProps<"/[slug]">) {
             </div>
           </div>
 
-          <section aria-label="Highlights" className="mt-14 grid grid-cols-1 gap-x-5 gap-y-4 border-t border-line pt-6 text-sm leading-6 min-[541px]:grid-cols-2">
-            <h2 className="text-muted">Highlights</h2>
-            <ol className="space-y-4">
-              {project.highlights.map((highlight, i) => (
-                <li key={highlight} className="grid grid-cols-[2rem_1fr]">
-                  <span className="text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ol>
-          </section>
+          {/* Text on the left, photos on the right; on wide screens the text stays in view while the photos scroll. */}
+          <div className="mt-14 grid grid-cols-1 gap-x-5 gap-y-12 border-t border-line pt-6 lg:grid-cols-2">
+            <div className="space-y-12 text-sm leading-6 lg:sticky lg:top-8 lg:self-start lg:pr-8">
+              {project.writeup && (
+                <section aria-label="Overview">
+                  <h2 className="text-muted">Overview</h2>
+                  <div className="mt-4 space-y-4">
+                    {project.writeup.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                </section>
+              )}
 
-          <section aria-label="Images" className="mt-14">
-            {project.gallery.length > 0 ? (
-              <ProjectGallery rows={project.gallery} />
-            ) : (
-              <div className="flex aspect-[16/9] items-center justify-center bg-surface text-sm text-muted">
-                Photos coming soon
+              {project.highlights.length > 0 && (
+                <section aria-label="Highlights">
+                  <h2 className="text-muted">Highlights</h2>
+                  <ol className="mt-4 space-y-4">
+                    {project.highlights.map((highlight, i) => (
+                      <li key={highlight} className="grid grid-cols-[2rem_1fr]">
+                        <span className="text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              )}
+            </div>
+
+            <section aria-label="Photos">
+              <h2 className="text-sm leading-6 text-muted">{project.gallery.flat().some((item) => item.video) ? "Photos & video" : "Photos"}</h2>
+              <div className="mt-4">
+                {project.gallery.length > 0 ? (
+                  <ProjectGallery rows={project.gallery} />
+                ) : (
+                  <div className="flex aspect-[4/3] items-center justify-center bg-surface text-sm text-muted">Photos coming soon</div>
+                )}
               </div>
-            )}
-          </section>
+            </section>
+          </div>
         </article>
 
         <section aria-label="More projects" className="mt-24 border-t border-line pt-6">

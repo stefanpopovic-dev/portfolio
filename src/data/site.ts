@@ -73,6 +73,8 @@ export type ProjectImage = {
   height: number;
   alt: string;
   caption?: string;
+  // Set to an .mp4 to show a muted, looping clip in this spot; `src` is then its poster frame.
+  video?: string;
 };
 
 export type Project = {
@@ -85,6 +87,8 @@ export type Project = {
   // Listed under the project name on the home page cover.
   scope: string[];
   summary: string;
+  // Short paragraphs about the project; shown instead of a highlights list when there are no highlights.
+  writeup?: string[];
   highlights: string[];
   // Shown on the home page grid. Leave undefined to show a placeholder until photos are added.
   cover?: ProjectImage;
@@ -95,6 +99,8 @@ export type Project = {
 };
 
 const fpv = "/projects/fpv-flight-controller";
+const gec = "/projects/gec-recycling-robot";
+const ostrich = "/projects/solar-hydraulic-ostrich";
 
 export const projects: Project[] = [
   {
@@ -136,6 +142,78 @@ export const projects: Project[] = [
       [{ src: `${fpv}/schematic.png`, width: 4320, height: 2808, alt: "Full schematic of the flight controller", caption: "Schematic" }],
     ],
     repo: "https://github.com/stefanpopovic-dev/fpv-flight-controller",
+  },
+  {
+    slug: "gec-recycling-robot",
+    title: "GEC Competition Robot",
+    category: "Autonomous Robotics",
+    context: "Guelph Engineering Competition 2026, Senior Design, team of 4",
+    period: "Oct. 2026",
+    tools: ["Arduino UNO", "L298N H-bridges", "DC motors"],
+    scope: ["Autonomous vehicle (Arduino)", "4WD skid-steer drive", "Passive pickup and storage", "Built in one day, team of 4"],
+    summary:
+      "ACU-3741-4W, an autonomous car built in one day at the Guelph Engineering Competition to collect recyclables off a simulated landfill grid and leave the trash behind.",
+    writeup: [
+      "At the 2026 Guelph Engineering Competition, Ali Meski, Khaled Jimoh, Adam Alzahal, and I had one day and a standard kit to build an autonomous vehicle for the theme \"Full Circle: Rethinking Resources.\" The robot had to drive a simulated landfill grid, pick up the three recyclables, and leave the three pieces of trash where they were, with no human input once the run started. It was tested on two randomized layouts, and judges scored the design, the reuse of materials, and our presentation.",
+      "We called ours the ACU-3741-4W. An Arduino UNO drives four DC motors through two L298N H-bridges, giving the car four-wheel skid-steer control. The pickup isn't motorized. Two cardboard guide arms and a shallow ramp at the front funnel items in as the car drives, a flap stops them from sliding back out, and everything ends up in a storage bag at the back. We kept the build to cardboard, heavy paper, a reusable bag, and rechargeable batteries, so it comes apart easily and the parts can be used again.",
+    ],
+    highlights: [],
+    cover: { src: `${gec}/front.webp`, width: 1500, height: 1200, alt: "ACU-3741-4W robot with its cardboard guide arms and front ramp" },
+    gallery: [
+      [
+        { src: `${gec}/front.webp`, width: 1500, height: 1200, alt: "Robot from the front, showing the guide arms and ramp", caption: "Front, guide arms and ramp" },
+        {
+          src: `${gec}/test-run-poster.jpg`,
+          video: `${gec}/test-run.mp4`,
+          width: 540,
+          height: 960,
+          alt: "Robot driving the competition grid on its own",
+          caption: "Test run",
+        },
+      ],
+      [
+        { src: `${gec}/side.webp`, width: 1600, height: 1200, alt: "Robot from the side next to other competition entries", caption: "Side" },
+        { src: `${gec}/side-bag.webp`, width: 2000, height: 1200, alt: "Robot from the side, showing the storage bag at the back", caption: "Storage bag at the back" },
+      ],
+    ],
+  },
+  {
+    slug: "solar-hydraulic-ostrich",
+    title: "Solar-Hydraulic Toy Reverse Engineering",
+    category: "Mechanical CAD",
+    context: "University of Guelph, team of 6",
+    period: "Sept. 2025 – Mar. 2026",
+    tools: ["SolidWorks"],
+    scope: ["Reverse engineering", "SolidWorks modeling & assembly", "2D drawing package", "Team of 6"],
+    summary:
+      "A full SolidWorks assembly of a solar-hydraulic ostrich toy, reverse engineered by a team of six using nothing but the physical pieces as a reference.",
+    writeup: [
+      "For a group project at the University of Guelph, our team of six reverse engineered the ostrich model from a 12-in-1 solar and hydraulic construction kit and rebuilt it as a complete SolidWorks assembly. There were no drawings or CAD files to work from, only the physical pieces, so each of us measured and modeled our assigned parts by hand, and together we released a full 2D drawing package.",
+      "I built and led the full assembly, bringing all six members' parts together into one mated model with motion relationships and tolerances defined so we could check fit and function. I also animated the exploded views and the assembly sequence for our design review presentation.",
+    ],
+    highlights: [],
+    // Same render as the first gallery photo, widened to 4:3 with its own background so the tile doesn't crop the model.
+    cover: { src: `${ostrich}/assembly-front-cover.jpg`, width: 1111, height: 833, alt: "SolidWorks render of the finished ostrich assembly" },
+    gallery: [
+      [
+        { src: `${ostrich}/assembly-front.png`, width: 923, height: 833, alt: "SolidWorks render of the ostrich assembly, front three-quarter view", caption: "SolidWorks assembly, front" },
+        { src: `${ostrich}/assembly-back.png`, width: 830, height: 767, alt: "SolidWorks render of the ostrich assembly, rear three-quarter view", caption: "SolidWorks assembly, back" },
+      ],
+      [
+        {
+          src: `${ostrich}/exploded-view-poster.jpg`,
+          video: `${ostrich}/exploded-view.mp4`,
+          width: 1280,
+          height: 466,
+          alt: "Animation of the ostrich assembly exploding into its parts and coming back together",
+          caption: "Exploded view animation",
+        },
+      ],
+      [
+        { src: `${ostrich}/toy.jpg`, width: 560, height: 725, alt: "The physical solar-hydraulic ostrich toy", caption: "The physical toy" },
+        { src: `${ostrich}/kit-box.jpg`, width: 447, height: 447, alt: "Box of the 12-in-1 solar and hydraulic construction kit", caption: "The 12-in-1 kit it comes from" },
+      ],
+    ],
   },
   {
     slug: "fsae-can-data-logger",
@@ -187,23 +265,6 @@ export const projects: Project[] = [
       "Trained a neural network position evaluator on 250,000 labeled positions from Lichess games scored by Stockfish, replacing hand-tuned piece values as the engine's leaf-node heuristic.",
       "Diagnosed a search-depth collapse after swapping in the NN evaluator, tracing the bottleneck to thousands of network calls per move, and added an evaluation cache to recover 4 plies.",
       "Benchmarked the NN-evaluated engine against the hand-tuned baseline across 200 self-play games at fixed time per move, winning 55%.",
-    ],
-    gallery: [],
-  },
-  {
-    slug: "solar-hydraulic-ostrich",
-    title: "Solar-Hydraulic Toy Reverse Engineering",
-    category: "Mechanical CAD",
-    context: "University of Guelph, team of 6",
-    period: "Sept. 2025 – Mar. 2026",
-    tools: ["SolidWorks"],
-    scope: ["Reverse engineering", "SolidWorks modeling & assembly", "2D drawing package", "Team of 6"],
-    summary:
-      "A full SolidWorks reverse engineering of a solar-hydraulic ostrich toy: measured parts, a 2D drawing package, and an animated team assembly.",
-    highlights: [
-      "Reverse engineered a multi-component solar-hydraulic toy in a 6-person team, measuring and modeling individually assigned parts in SolidWorks and releasing a full 2D drawing package.",
-      "Built and led the full team assembly, integrating all 6 members' individually modeled parts into a single mated assembly with defined motion relationships and tolerances to validate fit and function.",
-      "Animated exploded views and the assembly sequence for the design review presentation.",
     ],
     gallery: [],
   },

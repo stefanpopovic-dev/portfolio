@@ -13,6 +13,8 @@ To add photos to a project:
 
 Projects without photos show a "Photos coming soon" placeholder.
 
+A project can also have a `writeup` (a few short paragraphs, shown instead of a highlights list). To put a video clip in a gallery row, add an item with `video` set to the `.mp4` and `src` set to a poster frame; it plays muted and looping at the same height as the photos beside it. Keep clips short and small: an H.264 `.mp4` with no audio track autoplays in every major browser.
+
 ### Develop locally
 
 ```bash
