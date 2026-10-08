@@ -73,14 +73,8 @@ export type ProjectImage = {
   height: number;
   alt: string;
   caption?: string;
-};
-
-export type ProjectVideo = {
-  src: string;
-  poster: string;
-  width: number;
-  height: number;
-  caption?: string;
+  // Set to an .mp4 to show a muted, looping clip in this spot; `src` is then its poster frame.
+  video?: string;
 };
 
 export type Project = {
@@ -100,8 +94,6 @@ export type Project = {
   cover?: ProjectImage;
   // Each inner array is one row on the project page; images in a row sit side by side at equal height.
   gallery: ProjectImage[][];
-  // Shown above the gallery; muted and looping.
-  video?: ProjectVideo;
   repo?: string;
   link?: string;
 };
@@ -166,19 +158,22 @@ export const projects: Project[] = [
     ],
     highlights: [],
     cover: { src: `${gec}/front.webp`, width: 1500, height: 1200, alt: "ACU-3741-4W robot with its cardboard guide arms and front ramp" },
-    video: {
-      src: `${gec}/test-run.mp4`,
-      poster: `${gec}/test-run-poster.jpg`,
-      width: 540,
-      height: 960,
-      caption: "Running autonomously during competition testing",
-    },
     gallery: [
       [
         { src: `${gec}/front.webp`, width: 1500, height: 1200, alt: "Robot from the front, showing the guide arms and ramp", caption: "Front, guide arms and ramp" },
-        { src: `${gec}/side.webp`, width: 1600, height: 1200, alt: "Robot from the side next to other competition entries", caption: "Side" },
+        {
+          src: `${gec}/test-run-poster.jpg`,
+          video: `${gec}/test-run.mp4`,
+          width: 540,
+          height: 960,
+          alt: "Robot driving the competition grid on its own",
+          caption: "Test run",
+        },
       ],
-      [{ src: `${gec}/side-bag.webp`, width: 2000, height: 1200, alt: "Robot from the side, showing the paper storage bag at the back", caption: "Side, storage bag at the back" }],
+      [
+        { src: `${gec}/side.webp`, width: 1600, height: 1200, alt: "Robot from the side next to other competition entries", caption: "Side" },
+        { src: `${gec}/side-bag.webp`, width: 2000, height: 1200, alt: "Robot from the side, showing the storage bag at the back", caption: "Storage bag at the back" },
+      ],
     ],
   },
   {

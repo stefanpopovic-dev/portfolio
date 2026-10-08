@@ -108,33 +108,12 @@ export default async function ProjectPage({ params }: PageProps<"/[slug]">) {
             </section>
           )}
 
-          {project.video && (
-            <figure className="mt-14">
-              {/* The clip has no audio track, so browsers allow it to autoplay. */}
-              <video
-                src={project.video.src}
-                poster={project.video.poster}
-                width={project.video.width}
-                height={project.video.height}
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                preload="metadata"
-                className="block h-auto max-h-[85vh] w-auto max-w-full bg-surface"
-              />
-              {project.video.caption && <figcaption className="mt-2 text-sm text-muted">{project.video.caption}</figcaption>}
-            </figure>
-          )}
-
-          <section aria-label="Images" className={project.video ? "mt-5" : "mt-14"}>
+          <section aria-label="Photos" className="mt-14 grid grid-cols-1 gap-x-5 gap-y-4 border-t border-line pt-6 lg:grid-cols-2">
+            <h2 className="text-sm text-muted">{project.gallery.flat().some((item) => item.video) ? "Photos & video" : "Photos"}</h2>
             {project.gallery.length > 0 ? (
               <ProjectGallery rows={project.gallery} />
             ) : (
-              <div className="flex aspect-[16/9] items-center justify-center bg-surface text-sm text-muted">
-                Photos coming soon
-              </div>
+              <div className="flex aspect-[4/3] items-center justify-center bg-surface text-sm text-muted">Photos coming soon</div>
             )}
           </section>
         </article>
