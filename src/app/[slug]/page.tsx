@@ -83,19 +83,52 @@ export default async function ProjectPage({ params }: PageProps<"/[slug]">) {
             </div>
           </div>
 
-          <section aria-label="Highlights" className="mt-14 grid grid-cols-1 gap-x-5 gap-y-4 border-t border-line pt-6 text-sm leading-6 min-[541px]:grid-cols-2">
-            <h2 className="text-muted">Highlights</h2>
-            <ol className="space-y-4">
-              {project.highlights.map((highlight, i) => (
-                <li key={highlight} className="grid grid-cols-[2rem_1fr]">
-                  <span className="text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ol>
-          </section>
+          {project.writeup && (
+            <section aria-label="Overview" className="mt-14 grid grid-cols-1 gap-x-5 gap-y-4 border-t border-line pt-6 text-sm leading-6 min-[541px]:grid-cols-2">
+              <h2 className="text-muted">Overview</h2>
+              <div className="space-y-4">
+                {project.writeup.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </section>
+          )}
 
-          <section aria-label="Images" className="mt-14">
+          {project.highlights.length > 0 && (
+            <section aria-label="Highlights" className="mt-14 grid grid-cols-1 gap-x-5 gap-y-4 border-t border-line pt-6 text-sm leading-6 min-[541px]:grid-cols-2">
+              <h2 className="text-muted">Highlights</h2>
+              <ol className="space-y-4">
+                {project.highlights.map((highlight, i) => (
+                  <li key={highlight} className="grid grid-cols-[2rem_1fr]">
+                    <span className="text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          {project.video && (
+            <figure className="mt-14">
+              {/* The clip has no audio track, so browsers allow it to autoplay. */}
+              <video
+                src={project.video.src}
+                poster={project.video.poster}
+                width={project.video.width}
+                height={project.video.height}
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                className="block h-auto max-h-[85vh] w-auto max-w-full bg-surface"
+              />
+              {project.video.caption && <figcaption className="mt-2 text-sm text-muted">{project.video.caption}</figcaption>}
+            </figure>
+          )}
+
+          <section aria-label="Images" className={project.video ? "mt-5" : "mt-14"}>
             {project.gallery.length > 0 ? (
               <ProjectGallery rows={project.gallery} />
             ) : (

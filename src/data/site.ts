@@ -75,6 +75,14 @@ export type ProjectImage = {
   caption?: string;
 };
 
+export type ProjectVideo = {
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  caption?: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -85,16 +93,21 @@ export type Project = {
   // Listed under the project name on the home page cover.
   scope: string[];
   summary: string;
+  // Short paragraphs about the project; shown instead of a highlights list when there are no highlights.
+  writeup?: string[];
   highlights: string[];
   // Shown on the home page grid. Leave undefined to show a placeholder until photos are added.
   cover?: ProjectImage;
   // Each inner array is one row on the project page; images in a row sit side by side at equal height.
   gallery: ProjectImage[][];
+  // Shown above the gallery; muted and looping.
+  video?: ProjectVideo;
   repo?: string;
   link?: string;
 };
 
 const fpv = "/projects/fpv-flight-controller";
+const gec = "/projects/gec-recycling-robot";
 
 export const projects: Project[] = [
   {
@@ -136,6 +149,37 @@ export const projects: Project[] = [
       [{ src: `${fpv}/schematic.png`, width: 4320, height: 2808, alt: "Full schematic of the flight controller", caption: "Schematic" }],
     ],
     repo: "https://github.com/stefanpopovic-dev/fpv-flight-controller",
+  },
+  {
+    slug: "gec-recycling-robot",
+    title: "GEC Competition Robot",
+    category: "Autonomous Robotics",
+    context: "Guelph Engineering Competition 2026, Senior Design, team of 4",
+    period: "Oct. 2026",
+    tools: ["Arduino UNO", "L298N H-bridges", "DC motors"],
+    scope: ["Autonomous vehicle (Arduino)", "4WD skid-steer drive", "Passive pickup and storage", "Built in one day, team of 4"],
+    summary:
+      "ACU-3741-4W, an autonomous car built in one day at the Guelph Engineering Competition to collect recyclables off a simulated landfill grid and leave the trash behind.",
+    writeup: [
+      "At the 2026 Guelph Engineering Competition, Ali Meski, Khaled Jimoh, Adam Alzahal, and I had one day and a standard kit to build an autonomous vehicle for the theme \"Full Circle: Rethinking Resources.\" The robot had to drive a simulated landfill grid, pick up the three recyclables, and leave the three pieces of trash where they were, with no human input once the run started. It was tested on two randomized layouts, and judges scored the design, the reuse of materials, and our presentation.",
+      "We called ours the ACU-3741-4W. An Arduino UNO drives four DC motors through two L298N H-bridges, giving the car four-wheel skid-steer control. The pickup isn't motorized. Two cardboard guide arms and a shallow ramp at the front funnel items in as the car drives, a flap stops them from sliding back out, and everything ends up in a storage bag at the back. We kept the build to cardboard, heavy paper, a reusable bag, and rechargeable batteries, so it comes apart easily and the parts can be used again.",
+    ],
+    highlights: [],
+    cover: { src: `${gec}/front.webp`, width: 1500, height: 1200, alt: "ACU-3741-4W robot with its cardboard guide arms and front ramp" },
+    video: {
+      src: `${gec}/test-run.mp4`,
+      poster: `${gec}/test-run-poster.jpg`,
+      width: 540,
+      height: 960,
+      caption: "Running autonomously during competition testing",
+    },
+    gallery: [
+      [
+        { src: `${gec}/front.webp`, width: 1500, height: 1200, alt: "Robot from the front, showing the guide arms and ramp", caption: "Front, guide arms and ramp" },
+        { src: `${gec}/side.webp`, width: 1600, height: 1200, alt: "Robot from the side next to other competition entries", caption: "Side" },
+      ],
+      [{ src: `${gec}/side-bag.webp`, width: 2000, height: 1200, alt: "Robot from the side, showing the paper storage bag at the back", caption: "Side, storage bag at the back" }],
+    ],
   },
   {
     slug: "fsae-can-data-logger",

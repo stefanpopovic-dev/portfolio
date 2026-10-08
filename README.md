@@ -13,6 +13,8 @@ To add photos to a project:
 
 Projects without photos show a "Photos coming soon" placeholder.
 
+A project can also have a `writeup` (a few short paragraphs, shown instead of a highlights list) and a `video` (shown muted and looping above the photos). Keep videos short and small: an H.264 `.mp4` with no audio track autoplays in every major browser.
+
 ### Develop locally
 
 ```bash
