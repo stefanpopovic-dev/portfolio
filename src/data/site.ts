@@ -100,6 +100,7 @@ export type Project = {
 
 const fpv = "/projects/fpv-flight-controller";
 const gec = "/projects/gec-recycling-robot";
+const ostrich = "/projects/solar-hydraulic-ostrich";
 
 export const projects: Project[] = [
   {
@@ -177,6 +178,44 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "solar-hydraulic-ostrich",
+    title: "Solar-Hydraulic Toy Reverse Engineering",
+    category: "Mechanical CAD",
+    context: "University of Guelph, team of 6",
+    period: "Sept. 2025 – Mar. 2026",
+    tools: ["SolidWorks"],
+    scope: ["Reverse engineering", "SolidWorks modeling & assembly", "2D drawing package", "Team of 6"],
+    summary:
+      "A full SolidWorks assembly of a solar-hydraulic ostrich toy, reverse engineered by a team of six using nothing but the physical pieces as a reference.",
+    writeup: [
+      "For a group project at the University of Guelph, our team of six reverse engineered the ostrich model from a 12-in-1 solar and hydraulic construction kit and rebuilt it as a complete SolidWorks assembly. There were no drawings or CAD files to work from, only the physical pieces, so each of us measured and modeled our assigned parts by hand, and together we released a full 2D drawing package.",
+      "I built and led the full assembly, bringing all six members' parts together into one mated model with motion relationships and tolerances defined so we could check fit and function. I also animated the exploded views and the assembly sequence for our design review presentation.",
+    ],
+    highlights: [],
+    // Same render as the first gallery photo, widened to 4:3 with its own background so the tile doesn't crop the model.
+    cover: { src: `${ostrich}/assembly-front-cover.jpg`, width: 1111, height: 833, alt: "SolidWorks render of the finished ostrich assembly" },
+    gallery: [
+      [
+        { src: `${ostrich}/assembly-front.png`, width: 923, height: 833, alt: "SolidWorks render of the ostrich assembly, front three-quarter view", caption: "SolidWorks assembly, front" },
+        { src: `${ostrich}/assembly-back.png`, width: 830, height: 767, alt: "SolidWorks render of the ostrich assembly, rear three-quarter view", caption: "SolidWorks assembly, back" },
+      ],
+      [
+        {
+          src: `${ostrich}/exploded-view-poster.jpg`,
+          video: `${ostrich}/exploded-view.mp4`,
+          width: 1280,
+          height: 466,
+          alt: "Animation of the ostrich assembly exploding into its parts and coming back together",
+          caption: "Exploded view animation",
+        },
+      ],
+      [
+        { src: `${ostrich}/toy.jpg`, width: 560, height: 725, alt: "The physical solar-hydraulic ostrich toy", caption: "The physical toy" },
+        { src: `${ostrich}/kit-box.jpg`, width: 447, height: 447, alt: "Box of the 12-in-1 solar and hydraulic construction kit", caption: "The 12-in-1 kit it comes from" },
+      ],
+    ],
+  },
+  {
     slug: "fsae-can-data-logger",
     title: "CAN Data Logger & LoRa Telemetry",
     category: "Embedded Firmware",
@@ -226,23 +265,6 @@ export const projects: Project[] = [
       "Trained a neural network position evaluator on 250,000 labeled positions from Lichess games scored by Stockfish, replacing hand-tuned piece values as the engine's leaf-node heuristic.",
       "Diagnosed a search-depth collapse after swapping in the NN evaluator, tracing the bottleneck to thousands of network calls per move, and added an evaluation cache to recover 4 plies.",
       "Benchmarked the NN-evaluated engine against the hand-tuned baseline across 200 self-play games at fixed time per move, winning 55%.",
-    ],
-    gallery: [],
-  },
-  {
-    slug: "solar-hydraulic-ostrich",
-    title: "Solar-Hydraulic Toy Reverse Engineering",
-    category: "Mechanical CAD",
-    context: "University of Guelph, team of 6",
-    period: "Sept. 2025 – Mar. 2026",
-    tools: ["SolidWorks"],
-    scope: ["Reverse engineering", "SolidWorks modeling & assembly", "2D drawing package", "Team of 6"],
-    summary:
-      "A full SolidWorks reverse engineering of a solar-hydraulic ostrich toy: measured parts, a 2D drawing package, and an animated team assembly.",
-    highlights: [
-      "Reverse engineered a multi-component solar-hydraulic toy in a 6-person team, measuring and modeling individually assigned parts in SolidWorks and releasing a full 2D drawing package.",
-      "Built and led the full team assembly, integrating all 6 members' individually modeled parts into a single mated assembly with defined motion relationships and tolerances to validate fit and function.",
-      "Animated exploded views and the assembly sequence for the design review presentation.",
     ],
     gallery: [],
   },

@@ -49,7 +49,7 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
                 <figure
                   key={item.src}
                   // On phones rows stack, so keep a portrait clip from towering over the photos.
-                  className={`min-w-0 ${item.video ? "max-sm:max-w-[60%]" : ""}`}
+                  className={`min-w-0 ${item.video && aspect < 1 ? "max-sm:max-w-[60%]" : ""}`}
                   style={{ flex: `${aspect} 1 0%` }}
                 >
                   {item.video ? (
