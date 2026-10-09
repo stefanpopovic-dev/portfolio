@@ -36,12 +36,6 @@ export const experience: {
     period: "Sept. 2024 – Present",
     location: "Guelph, ON",
   },
-  {
-    org: "Cineplex",
-    role: "Traditional Cast Member (Permanent Part-Time)",
-    period: "Oct. 2023 – Present",
-    location: "Kitchener, ON",
-  },
 ];
 
 export const skills: { category: string; items: string[] }[] = [
@@ -96,13 +90,15 @@ export type Project = {
   gallery: ProjectImage[][];
   repo?: string;
   link?: string;
+  // Hidden projects stay here but don't appear anywhere on the site. Remove the flag to show one again.
+  hidden?: boolean;
 };
 
 const fpv = "/projects/fpv-flight-controller";
 const gec = "/projects/gec-recycling-robot";
 const ostrich = "/projects/solar-hydraulic-ostrich";
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     slug: "fpv-flight-controller",
     title: "Custom FPV Flight Controller PCB",
@@ -217,6 +213,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fsae-can-data-logger",
+    hidden: true,
     title: "CAN Data Logger & LoRa Telemetry",
     category: "Embedded Firmware",
     context: "Gryphon Racing, Formula SAE",
@@ -235,6 +232,7 @@ export const projects: Project[] = [
   },
   {
     slug: "16-bit-cpu",
+    hidden: true,
     title: "16-Bit CPU Architecture",
     category: "Digital Design / FPGA",
     context: "University of Guelph, team of 4",
@@ -252,6 +250,7 @@ export const projects: Project[] = [
   },
   {
     slug: "chess-engine",
+    hidden: true,
     title: "Chess Engine with Learned Position Evaluation",
     category: "Software / Machine Learning",
     context: "Personal project",
@@ -269,6 +268,8 @@ export const projects: Project[] = [
     gallery: [],
   },
 ];
+
+export const projects = allProjects.filter((project) => !project.hidden);
 
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);

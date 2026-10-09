@@ -11,7 +11,7 @@ To add photos to a project:
 1. Put the images in `public/projects/<project-slug>/`.
 2. In `site.ts`, set the project's `cover` (shown on the home page) and add rows to its `gallery` (shown on the project page). Images in the same row sit side by side at equal height.
 
-Projects without photos show a "Photos coming soon" placeholder.
+Projects without photos show a "Photos coming soon" placeholder. To take a project off the site without losing its text, add `hidden: true` to it; remove the flag to bring it back.
 
 A project can also have a `writeup` (a few short paragraphs, shown instead of a highlights list). To put a video clip in a gallery row, add an item with `video` set to the `.mp4` and `src` set to a poster frame; it plays muted and looping at the same height as the photos beside it. Keep clips short and small: an H.264 `.mp4` with no audio track autoplays in every major browser.
 
