@@ -108,14 +108,12 @@ const allProjects: Project[] = [
     tools: ["KiCad", "STM32F405", "Betaflight"],
     scope: ["PCB design, 4-layer (KiCad)", "STM32F405, Betaflight", "Board bring-up", "Flight testing"],
     summary:
-      "A 4-layer, 30.5 × 30.5 mm STM32F405 flight controller designed from scratch in KiCad, flown on a 5-inch quad with stable hover and full manual control.",
-    highlights: [
-      "Self-taught KiCad to design an STM32F405 flight controller from scratch, taking it from schematic capture to a 4-layer, 30.5 mm × 30.5 mm board that reached first flight with stable hover and full manual control across 5 test flights.",
-      "Benchmarked the board against a similar commercial F405 flight controller on an identical quadcopter by logging in-flight gyro data, measuring sensor noise within 10% of the commercial board.",
-      "Iterated the PCB layout through 3 full design revisions before fabrication, resolving routing conflicts across all 7 functional blocks (MCU, IMU, barometer, OSD, flash, USB-C, and buck converter + LDO regulation from an 11–25 V battery input) to fit a dense 4-layer board.",
-      "Engineered MCU pin, timer, and SPI/UART assignments around Betaflight's hardware requirements, enabling the board to run open-source flight firmware and standard FPV hardware with zero code changes.",
-      "Diagnosed a switch footprint/pinout mismatch that held BOOT0 high and trapped the MCU in bootloader mode on every power-up; lifted 2 of 4 pins to restore normal boot and motor control.",
+      "A 4-layer, 30.5 × 30.5 mm STM32F405 flight controller I designed from scratch in KiCad, flown with stable hover and full manual control.",
+    writeup: [
+      "I taught myself KiCad for this project and designed an FPV flight controller from scratch: a 4-layer, 30.5 × 30.5 mm board built around an STM32F405, with an ICM-42688-P gyro, a DPS310 barometer, a MAX7456 analog OSD, 128 Mbit of blackbox flash, USB-C, and a buck converter and LDO that run it off an 11–25 V battery. Fitting all of that onto a board that small took three full layout revisions. I planned the pin, timer, SPI, and UART assignments around Betaflight's requirements, so it runs the stock open-source firmware with standard FPV gear and no code changes.",
+      "The assembled board wouldn't boot normally at first. A switch footprint didn't match the part's pinout, which held BOOT0 high and dropped the MCU into its bootloader on every power-up; lifting two of the switch's four pins restored normal boot and motor control. From there it flew, with stable hover and full manual control across five test flights. To see how it compared, I logged in-flight gyro data from it and from a similar commercial F405 controller on an identical quad, and its sensor noise came in within 10% of the commercial board. The design files are open hardware on GitHub, including a corrected revision that fixes the boot switch and the barometer's 3.3 V connection.",
     ],
+    highlights: [],
     cover: { src: `${fpv}/quad-front.jpg`, width: 1200, height: 1117, alt: "Finished quadcopter built around the custom flight controller" },
     gallery: [
       [
