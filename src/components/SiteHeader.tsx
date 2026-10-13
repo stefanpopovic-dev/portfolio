@@ -2,7 +2,7 @@ import Link from "next/link";
 import { site } from "@/data/site";
 
 const nav = [
-  { href: "/", label: "Project", key: "project" },
+  { href: "/", label: "Projects", key: "project" },
   { href: "/about", label: "About", key: "about" },
 ] as const;
 

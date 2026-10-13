@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: PageProps<"/[slug]">) {
                     <dt className="text-muted">Source</dt>
                     <dd>
                       <a href={project.repo} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-50">
-                        GitHub repository
+                        GitHub repository ↗
                       </a>
                     </dd>
                   </div>
@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: PageProps<"/[slug]">) {
                     <dt className="text-muted">Link</dt>
                     <dd>
                       <a href={project.link} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-50">
-                        View project
+                        View project ↗
                       </a>
                     </dd>
                   </div>
@@ -113,7 +113,10 @@ export default async function ProjectPage({ params }: PageProps<"/[slug]">) {
             </div>
 
             <section aria-label="Photos">
-              <h2 className="text-sm leading-6 text-muted">{project.gallery.flat().some((item) => item.video) ? "Photos & video" : "Photos"}</h2>
+              <div className="flex items-baseline justify-between gap-4 text-sm leading-6 text-muted">
+                <h2>{project.gallery.flat().some((item) => item.video) ? "Photos & video" : "Photos"}</h2>
+                {project.gallery.flat().some((item) => !item.video) && <p>Click a photo to enlarge</p>}
+              </div>
               <div className="mt-4">
                 {project.gallery.length > 0 ? (
                   <ProjectGallery rows={project.gallery} />

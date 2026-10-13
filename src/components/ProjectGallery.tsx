@@ -73,7 +73,7 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
                     <button
                       type="button"
                       onClick={() => setOpen(images.indexOf(item))}
-                      className="group relative block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+                      className="group relative block w-full cursor-zoom-in overflow-hidden"
                       aria-label={`Enlarge: ${item.alt}`}
                     >
                       <Image
@@ -82,7 +82,7 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
                         width={item.width}
                         height={item.height}
                         sizes={sizes}
-                        className="w-full bg-surface transition-opacity duration-300 group-hover:opacity-80"
+                        className="w-full bg-surface transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
                         loading={r === 0 ? "eager" : "lazy"}
                       />
                       {/* Always visible (not just on hover) so touch screens show the photo opens too. */}
@@ -108,7 +108,7 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
       {current &&
         open !== null &&
         createPortal(
-          <div role="dialog" aria-modal="true" aria-label={current.alt} className="fixed inset-0 z-50 flex flex-col bg-background">
+          <div role="dialog" aria-modal="true" aria-label={current.alt} className="fade-in fixed inset-0 z-50 flex flex-col bg-background">
             <div className="flex items-center justify-between px-5 py-4 text-sm sm:px-8">
               <span className="text-muted tabular-nums">
                 {open + 1} / {images.length}

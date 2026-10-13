@@ -43,6 +43,28 @@ body {
   color: var(--background);
 }
 
+/* A clear keyboard focus ring on links and buttons, never shown on mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+/* Even out ragged line breaks: balanced headings, no single-word last lines.
+   Only the wrap *style* is set, and in the base layer, so utilities like
+   whitespace-nowrap still win. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    text-wrap-style: balance;
+  }
+
+  p,
+  li {
+    text-wrap-style: pretty;
+  }
+}
+
 /* Fade each page in, like the page transitions on eyyy.design. */
 @keyframes page-in {
   from {
@@ -54,12 +76,18 @@ body {
   animation: page-in 0.6s ease both;
 }
 
+/* The photo viewer opening. */
+.fade-in {
+  animation: page-in 0.2s ease both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .page-in {
+  .page-in,
+  .fade-in {
     animation: none;
   }
 }
