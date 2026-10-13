@@ -97,6 +97,7 @@ export type Project = {
 const fpv = "/projects/fpv-flight-controller";
 const gec = "/projects/gec-recycling-robot";
 const ostrich = "/projects/solar-hydraulic-ostrich";
+const chessEngine = "/projects/chess-engine";
 
 const allProjects: Project[] = [
   {
@@ -210,6 +211,34 @@ const allProjects: Project[] = [
     ],
   },
   {
+    slug: "chess-engine",
+    title: "Chess Engine with Learned Position Evaluation",
+    category: "Software / Machine Learning",
+    context: "Personal project",
+    period: "May 2026 – Sept. 2026",
+    tools: ["Python", "PyTorch", "python-chess", "Stockfish"],
+    scope: ["Alpha-beta search (Python)", "Neural network evaluation (PyTorch)", "1M Stockfish-scored positions", "Self-play benchmarking"],
+    summary:
+      "An alpha-beta chess engine in Python that judges positions with a neural network trained on one million Stockfish-scored positions, winning 73 of 100 games against a version that only counts material.",
+    writeup: [
+      "I wanted to see whether a learned evaluation could beat a hand-tuned one inside the same search. The engine is a negamax alpha-beta search with iterative deepening, a quiescence search, and move ordering, built on python-chess. The baseline judges a position by counting material. For the alternative, I sampled one million positions from Lichess games, had Stockfish score each one, and trained a small PyTorch network to predict those scores, which cut the material count's error roughly in half.",
+      "The network made the engine about three times slower, costing it more than a ply of search depth, and profiling showed two thirds of the time going to network calls. An evaluation cache keyed on Zobrist hashes, kept between moves, made it 57% faster again. In a 100-game match at half a second per move, the network version won 73, drew 21, and lost 6, about +280 Elo, while still searching a ply shallower.",
+    ],
+    highlights: [],
+    // The first board from the gallery, widened to 4:3 on the site's surface grey so the tile doesn't crop it.
+    cover: { src: `${chessEngine}/cover.jpg`, width: 1440, height: 1080, alt: "Final position of a match game: the network's queen on e6 checkmates the black king on d7" },
+    gallery: [
+      [
+        { src: `${chessEngine}/mate-philidor.png`, width: 1200, height: 1200, alt: "Board after 10.Qe6#: the network, playing White, checkmates the material-count engine", caption: "Network as White, mate in 10" },
+        { src: `${chessEngine}/mate-vienna.png`, width: 1200, height: 1200, alt: "Board after 10...Qf2#: the network, playing Black, checkmates the material-count engine", caption: "Network as Black, mate in 10" },
+      ],
+      [{ src: `${chessEngine}/match-result.png`, width: 1200, height: 600, alt: "Bar chart of the 100-game match: 73 wins, 21 draws, and 6 losses for the network", caption: "100-game match result" }],
+      [{ src: `${chessEngine}/speed-depth.png`, width: 1200, height: 720, alt: "Bar charts of search speed and depth: material count 80k positions per second and 5.2 plies, network 25k and 3.9, network with cache 39k and 4.2", caption: "Speed and search depth" }],
+      [{ src: `${chessEngine}/training.png`, width: 1200, height: 840, alt: "Line chart of training: the network's error on held-out positions falls to 0.020, about half the 0.042 of counting material", caption: "Training the network" }],
+    ],
+    repo: "https://github.com/stefanpopovic-dev/neural-chess-engine",
+  },
+  {
     slug: "fsae-can-data-logger",
     hidden: true,
     title: "CAN Data Logger & LoRa Telemetry",
@@ -243,25 +272,6 @@ const allProjects: Project[] = [
       "Designed a 16-bit CPU in VHDL with a 4-person team, building and integrating the ALU, control unit, program counter, registers, instruction/data memory, and multiplexers into one processor.",
       "Implemented datapath and control logic supporting 8 instructions (ADD, SUB, AND, OR, LOAD, STORE, BNE, JUMP), verifying correct execution with VHDL testbenches and Vivado simulation waveforms.",
       "Verified each module on its own before system integration, then used waveform analysis to debug code and simulation configuration issues in the full CPU.",
-    ],
-    gallery: [],
-  },
-  {
-    slug: "chess-engine",
-    hidden: true,
-    title: "Chess Engine with Learned Position Evaluation",
-    category: "Software / Machine Learning",
-    context: "Personal project",
-    period: "May 2026 – Sept. 2026",
-    tools: ["Python", "PyTorch", "python-chess"],
-    scope: ["Alpha-beta search (Python)", "Neural network evaluation (PyTorch)", "Self-play benchmarking"],
-    summary:
-      "An alpha-beta chess engine whose hand-tuned evaluator was replaced by a neural network trained on 250,000 Stockfish-scored positions.",
-    highlights: [
-      "Built an alpha-beta search core over python-chess move generation, adding move ordering (captures and checks first) to reach 5 plies at 3 sec/move with a hand-tuned material evaluator.",
-      "Trained a neural network position evaluator on 250,000 labeled positions from Lichess games scored by Stockfish, replacing hand-tuned piece values as the engine's leaf-node heuristic.",
-      "Diagnosed a search-depth collapse after swapping in the NN evaluator, tracing the bottleneck to thousands of network calls per move, and added an evaluation cache to recover 4 plies.",
-      "Benchmarked the NN-evaluated engine against the hand-tuned baseline across 200 self-play games at fixed time per move, winning 55%.",
     ],
     gallery: [],
   },
