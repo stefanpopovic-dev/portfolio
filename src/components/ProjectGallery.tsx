@@ -73,7 +73,7 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
                     <button
                       type="button"
                       onClick={() => setOpen(images.indexOf(item))}
-                      className="block w-full cursor-zoom-in"
+                      className="group relative block w-full cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
                       aria-label={`Enlarge: ${item.alt}`}
                     >
                       <Image
@@ -82,9 +82,18 @@ export default function ProjectGallery({ rows }: { rows: ProjectImage[][] }) {
                         width={item.width}
                         height={item.height}
                         sizes={sizes}
-                        className="w-full bg-surface"
+                        className="w-full bg-surface transition-opacity duration-300 group-hover:opacity-80"
                         loading={r === 0 ? "eager" : "lazy"}
                       />
+                      {/* Always visible (not just on hover) so touch screens show the photo opens too. */}
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute right-2 top-2 flex size-8 items-center justify-center rounded-full bg-background/85 text-foreground shadow-sm transition-transform duration-300 group-hover:scale-110"
+                      >
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="size-4">
+                          <path d="M10 2.5h3.5V6M6 13.5H2.5V10M13.5 2.5 9 7M2.5 13.5 7 9" />
+                        </svg>
+                      </span>
                     </button>
                   )}
                   {item.caption && <figcaption className="mt-2 text-sm text-muted">{item.caption}</figcaption>}
